@@ -20,9 +20,11 @@ const App = () => {
         backgroundColor={'white'}
         barStyle={'dark-content'}
       />
-      <Stack.Navigator screenOptions={{headerShown: false}}>
-        <Stack.Screen name="TabNavigation" component={TabNavigation} />
+      <Stack.Navigator
+        initialRouteName="NotAuthNavigators"
+        screenOptions={{headerShown: false}}>
         <Stack.Screen name="NotAuthNavigators" component={NotAuthNavigators} />
+        <Stack.Screen name="TabNavigation" component={TabNavigation} />
       </Stack.Navigator>
       {/* {isAuth ? < /> : < />} */}
     </NavigationContainer>

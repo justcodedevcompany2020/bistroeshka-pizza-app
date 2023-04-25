@@ -36,7 +36,7 @@ export default ConfirmTellScreen = ({}) => {
   };
 
   return (
-    <Wrapper leftIcon={true} navigation={() => navigation.goBack()}>
+    <Wrapper leftIcon={true} goBack={() => navigation.goBack()}>
       <KeyboardAwareScrollView>
         <Text style={styles.title}>Восстановление пароля</Text>
         <Text style={styles.forgotInfo}>

@@ -6,10 +6,12 @@ import ForgotPassword from '../src/notAuthScreens/ForgotPassword';
 import ConfirmTellScreen from '../src/notAuthScreens/ConfirmTellScreen';
 import NewPassword from '../src/notAuthScreens/NewPassword';
 import ConfirmPhoneRegister from '../src/notAuthScreens/ConfirmPhoneRegister';
+import EditAddress from '../src/authScreens/EditAddress';
+import EditPasswordUser from './../src/authScreens/EditPasswordUser';
 
 const Stack = createStackNavigator();
 
-export default NotAuthNavigators = ({currentPage = ''}) => {
+export default NotAuthNavigators = ({}) => {
   return (
     <Stack.Navigator
       initialRouteName="LoginScreen"
@@ -19,7 +21,12 @@ export default NotAuthNavigators = ({currentPage = ''}) => {
       <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
       <Stack.Screen name="ConfirmTellScreen" component={ConfirmTellScreen} />
       <Stack.Screen name="NewPassword" component={NewPassword} />
-      <Stack.Screen name="ConfirmPhoneRegister" component={ConfirmPhoneRegister} />
+      <Stack.Screen
+        name="ConfirmPhoneRegister"
+        component={ConfirmPhoneRegister}
+      />
+      <Stack.Screen name="EditAddress" component={EditAddress} />
+      <Stack.Screen name="EditPasswordUser" component={EditPasswordUser} />
     </Stack.Navigator>
   );
 };

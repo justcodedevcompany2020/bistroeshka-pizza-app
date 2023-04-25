@@ -18,12 +18,14 @@ export default NavMenu = ({
   openFilter,
   bottomLine = false,
   history = false,
+  styleProps,
+  goBack,
 }) => {
   return (
-    <View style={[styles.staticStile]}>
+    <View style={[styles.staticStile, styleProps]}>
       {bottomLine && <View style={styles.bottomLine}></View>}
       {leftIcon ? (
-        <TouchableOpacity onPress={navigation}>
+        <TouchableOpacity onPress={goBack}>
           <BackButton />
         </TouchableOpacity>
       ) : (

@@ -15,8 +15,10 @@ import SuccessModal from './../../components/modals/sccessModal';
 export default NewPassword = ({}) => {
   const navigation = useNavigation();
   const [modal_open, setModalOpen] = useState(false);
+  const [eye1, setEye1] = useState(true);
+  const [eye2, setEye2] = useState(true);
   return (
-    <Wrapper leftIcon={true} navigation={() => navigation.goBack()}>
+    <Wrapper leftIcon={true} goBack={() => navigation.goBack()}>
       <KeyboardAwareScrollView>
         <Text style={styles.title}>Задайте{'\n'} новый пароль</Text>
         <Text style={styles.forgotInfo}>
@@ -27,12 +29,16 @@ export default NewPassword = ({}) => {
           label={'Пароль'}
           keyboardType={'default'}
           propsStyle={styles.firstInput}
-          secureTextEntry={true}
+          secureTextEntry={eye1}
+          password={true}
+          setEye={() => setEye1(!eye1)}
         />
         <InputContainer
           label={'Повторите пароль'}
           keyboardType={'default'}
-          secureTextEntry={true}
+          secureTextEntry={eye2}
+          password={true}
+          setEye={() => setEye2(!eye2)}
         />
         <Text style={styles.sendCodeMore}>Отправить код повторно</Text>
         <BigButton

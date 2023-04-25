@@ -5,11 +5,14 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import InputContainer from '../../components/inputs/InputContainer';
 import BigButton from '../../components/buttons/bigButton';
 import {useNavigation} from '@react-navigation/native';
+import {useState} from 'react';
 
 export default RegisterScreen = ({}) => {
   const navigation = useNavigation();
+  const [passwordEye, setPasswordEye] = useState(true);
+  const [confirmPasswordEye, setConfirmPasswordEye] = useState(true);
   return (
-    <Wrapper leftIcon={true} navigation={() => navigation.goBack()}>
+    <Wrapper leftIcon={true} goBack={() => navigation.goBack()}>
       <KeyboardAwareScrollView>
         <Text style={styles.title}>Регистрация</Text>
         <InputContainer
@@ -40,14 +43,18 @@ export default RegisterScreen = ({}) => {
         <InputContainer
           label={'Пароль'}
           keyboardType={'default'}
-          secureTextEntry={true}
+          secureTextEntry={passwordEye}
           propsStyle={styles.firstInput}
+          password={true}
+          setEye={() => setPasswordEye(!passwordEye)}
         />
         <InputContainer
           label={'Повторите пароль'}
           keyboardType={'default'}
-          secureTextEntry={true}
+          secureTextEntry={confirmPasswordEye}
           propsStyle={styles.firstInput}
+          password={true}
+          setEye={() => setConfirmPasswordEye(!confirmPasswordEye)}
         />
 
         <BigButton

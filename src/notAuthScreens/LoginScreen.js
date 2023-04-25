@@ -5,9 +5,12 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import InputContainer from '../../components/inputs/InputContainer';
 import BigButton from '../../components/buttons/bigButton';
 import {useNavigation} from '@react-navigation/native';
+import { useState } from 'react';
 
 export default LoginScreen = ({}) => {
   const navigation = useNavigation();
+  const [eye, setEye] = useState(true);
+  
   return (
     <Wrapper>
       <KeyboardAwareScrollView>
@@ -20,14 +23,21 @@ export default LoginScreen = ({}) => {
         <InputContainer
           label={'Пароль'}
           keyboardType={'default'}
-          secureTextEntry={true}
+          secureTextEntry={eye}
+          setEye={() => setEye(!eye)}
+          password={true}
         />
         <Text
           style={styles.forgotText}
           onPress={() => navigation.navigate('ForgotPassword')}>
           Забыли пароль?
         </Text>
-        <BigButton buttonText={'Войти'} />
+        <BigButton
+          buttonText={'Войти'}
+          navigation={() => navigation.navigate('TabNavigation',{
+            screen: 'Catalog'
+          })}
+        />
         <Text style={styles.haveAccount}>Нет аккаунта?</Text>
         <Text
           onPress={() => navigation.navigate('RegisterScreen')}
@@ -70,6 +80,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'Montserrat-SemiBold',
     fontSize: 15,
-    marginBottom: 20
+    marginBottom: 20,
   },
 });

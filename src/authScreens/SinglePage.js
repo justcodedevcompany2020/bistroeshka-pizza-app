@@ -25,11 +25,12 @@ export default SinglePage = ({}) => {
   const [isLiked, setIsLiked] = useState(false);
   const [count, setCount] = useState(0);
   const navigation = useNavigation();
+
   return (
     <Wrapper
       leftIcon={true}
       title={'Пеперони'}
-      navigation={() => navigation.goBack()}>
+      goBack={() => navigation.goBack()}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Slider data={data} />
 

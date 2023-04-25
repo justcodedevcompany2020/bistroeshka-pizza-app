@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {
   Dimensions,
+  Modal,
   StyleSheet,
   Text,
   TextInput,
@@ -30,6 +31,7 @@ const data = [
 export default FilterBox = ({isOpen, setOpen}) => {
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
+  const [startPrice, setStartPrice] = useState(null);
   const renderLabel = () => {
     if (value || isFocus) {
       return (
@@ -40,65 +42,82 @@ export default FilterBox = ({isOpen, setOpen}) => {
     }
     return null;
   };
+
+  // const changeStartPrice = e => {
+  //   // let new_result = Number(parseInt(e));
+  //   let res = e.replace(/^(?!0{3})(?!6{3})[0-8]\d{2}-(?!0{2})\d{2}-(?!0{4})\d{4}$/);
+  //   setStartPrice(res);
+  // };
+
   return (
-    <TouchableOpacity
-      activeOpacity={1}
-      onPress={setOpen}
-      style={[styles.touchable, isOpen ? {right: 0} : {right: -width}]}>
-      <TouchableHighlight style={styles.parent}>
-        <React.Fragment>
-          <View style={styles.titleClose}>
-            <Text style={styles.title}>Фильтр</Text>
-            <TouchableOpacity onPress={setOpen}>
-              <CloseFilterIcon />
-            </TouchableOpacity>
-          </View>
-          <Text style={styles.takePriceTitle}>Цена</Text>
-          <View style={styles.inputsParentFirst}>
-            <View style={styles.inputsParent}>
-              <Text style={styles.otDo}>От</Text>
-              <TextInput style={styles.inputs} />
+    <Modal
+      style={isOpen ? {right: 0} : {right: -width}}
+      visible={isOpen}
+      transparent>
+      <TouchableOpacity
+        activeOpacity={1}
+        onPress={setOpen}
+        style={[styles.touchable, isOpen ? {right: 0} : {right: -width}]}>
+        <TouchableHighlight style={styles.parent}>
+          <React.Fragment>
+            <View style={styles.titleClose}>
+              <Text style={styles.title}>Фильтр</Text>
+              <TouchableOpacity onPress={setOpen}>
+                <CloseFilterIcon />
+              </TouchableOpacity>
             </View>
-            <View style={styles.line}></View>
-            <View style={styles.inputsParent}>
-              <Text style={styles.otDo}>До</Text>
-              <TextInput style={styles.inputs} />
+            <Text style={styles.takePriceTitle}>Цена</Text>
+            <View style={styles.inputsParentFirst}>
+              <View style={styles.inputsParent}>
+                <Text style={styles.otDo}>От</Text>
+                <TextInput
+                  style={styles.inputs}
+                  keyboardType="number-pad"
+                  value={startPrice}
+                  // onChangeText={() => changeStartPrice()}
+                />
+              </View>
+              <View style={styles.line}></View>
+              <View style={styles.inputsParent}>
+                <Text style={styles.otDo}>До</Text>
+                <TextInput style={styles.inputs} keyboardType="number-pad" />
+              </View>
             </View>
-          </View>
 
-          <Text style={styles.takePriceTitle}>Категория</Text>
+            <Text style={styles.takePriceTitle}>Категория</Text>
 
-          <Dropdown
-            style={[styles.dropdown, isFocus && {borderColor: 'blue'}]}
-            placeholderStyle={styles.placeholderStyle}
-            selectedTextStyle={styles.selectedTextStyle}
-            itemTextStyle={styles.itemTextStyle}
-            // iconStyle={styles.iconStyle}
-            data={data}
-            // search
-            iconStyle={{
-              borderWidth: 1,
-            }}
-            renderRightIcon={() =>
-              isFocus ? <CloseDropdown /> : <OpenDropdown />
-            }
-            maxHeight={300}
-            labelField="label"
-            valueField="value"
-            placeholder={!isFocus ? 'Выберите категорию' : '...'}
-            searchPlaceholder="Search..."
-            value={value}
-            onFocus={() => setIsFocus(true)}
-            onBlur={() => setIsFocus(false)}
-            onChange={item => {
-              setValue(item.value);
-              setIsFocus(false);
-            }}
-            renderLeftIcon={null}
-          />
-        </React.Fragment>
-      </TouchableHighlight>
-    </TouchableOpacity>
+            <Dropdown
+              style={[styles.dropdown, isFocus && {borderColor: 'blue'}]}
+              placeholderStyle={styles.placeholderStyle}
+              selectedTextStyle={styles.selectedTextStyle}
+              itemTextStyle={styles.itemTextStyle}
+              // iconStyle={styles.iconStyle}
+              data={data}
+              // search
+              iconStyle={{
+                borderWidth: 1,
+              }}
+              renderRightIcon={() =>
+                isFocus ? <CloseDropdown /> : <OpenDropdown />
+              }
+              maxHeight={300}
+              labelField="label"
+              valueField="value"
+              placeholder={!isFocus ? 'Выберите категорию' : '...'}
+              searchPlaceholder="Search..."
+              value={value}
+              onFocus={() => setIsFocus(true)}
+              onBlur={() => setIsFocus(false)}
+              onChange={item => {
+                setValue(item.value);
+                setIsFocus(false);
+              }}
+              renderLeftIcon={null}
+            />
+          </React.Fragment>
+        </TouchableHighlight>
+      </TouchableOpacity>
+    </Modal>
   );
 };
 const styles = StyleSheet.create({

@@ -37,7 +37,7 @@ export default ConfirmPhoneRegister = ({}) => {
   };
 
   return (
-    <Wrapper leftIcon={true} navigation={() => navigation.goBack()}>
+    <Wrapper leftIcon={true} goBack={() => navigation.goBack()}>
       <KeyboardAwareScrollView>
         <Text style={styles.title}>Подтверждение тел. номера</Text>
         <Text style={styles.forgotInfo}>

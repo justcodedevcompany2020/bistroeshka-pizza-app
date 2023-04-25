@@ -10,12 +10,17 @@ export default Wrapper = ({
   openFilter,
   bottomLine,
   history,
+  stylePropsWrap,
+  styleProps,
+  goBack,
 }) => {
   return (
-    <SafeAreaView style={[styles.mainParent]}>
+    <SafeAreaView style={[styles.mainParent, stylePropsWrap]}>
       <NavMenu
+        styleProps={styleProps}
         leftIcon={leftIcon}
         title={title}
+        goBack={goBack}
         navigation={navigation}
         rightIcon={rightIcon}
         openFilter={openFilter}

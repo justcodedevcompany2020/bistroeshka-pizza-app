@@ -109,11 +109,14 @@ export default Catalog = () => {
       <FilterBox isOpen={open_filter} setOpen={() => setOpenFilter(false)} />
       <SearchInput />
       <View style={styles.subCategoryParent}>
-        <ScrollView horizontal>
-          {subCategory.map((item, index) => {
+        <FlatList
+          data={subCategory}
+          horizontal
+          keyExtractor={(_, index) => index.toString()}
+          renderItem={({item, index}) => {
             return <SubCategory text={item} isActive={false} key={index} />;
-          })}
-        </ScrollView>
+          }}
+        />
       </View>
       <FlatList
         data={data}

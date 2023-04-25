@@ -17,14 +17,21 @@ import Favorites from '../src/authScreens/Favorites';
 import BegPage from '../src/authScreens/BegPage';
 import ProfilePage from '../src/authScreens/ProfilePage';
 import NotAuthNavigators from './notAuthNavigators';
+import ShopHistory from '../src/authScreens/ShopHistory';
+import {useNavigation, useRoute} from '@react-navigation/native';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-export default TabNavigation = ({currentPage = ''}) => {
+export default TabNavigation = ({route}) => {
+  // const navigation = useNavigation();
+  // const routes = navigation.getState()?.routes;
+  // const prevRoute = routes[routes.length - 1];
+  // console.group(prevRoute.state.routes);
   return (
     <Tab.Navigator
       initialRouteName="CatalogStack"
+      // backBehavior="initialRoute"
       screenOptions={({route}) => ({
         headerShown: false,
         tabBarHideOnKeyboard: true,
@@ -83,6 +90,13 @@ export default TabNavigation = ({currentPage = ''}) => {
           },
         }}
       />
+      <Tab.Screen
+        name="SinglePage"
+        component={SinglePage}
+        options={{
+          tabBarItemStyle: {display: 'none'},
+        }}
+      />
     </Tab.Navigator>
   );
 };
@@ -102,11 +116,9 @@ const CatalogIcons = ({focused}) => {
 
 const CatalogStack = () => {
   return (
-    <Stack.Navigator
-      initialRouteName="Catalog"
-      screenOptions={{headerShown: false}}>
+    <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="Catalog" component={Catalog} />
-      <Stack.Screen name="SinglePage" component={SinglePage} />
+      {/* <Stack.Screen name="SinglePage" component={SinglePage} /> */}
     </Stack.Navigator>
   );
 };
@@ -131,7 +143,7 @@ const ProfileStack = () => {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="ProfilePage" component={ProfilePage} />
-      {/* <Stack.Screen name="NotAuthNavigators" component={NotAuthNavigators} /> */}
+      <Stack.Screen name="ShopHistory" component={ShopHistory} />
     </Stack.Navigator>
   );
 };

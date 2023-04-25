@@ -2,7 +2,8 @@ import {useState} from 'react';
 import Wrapper from './../../components/fixedElements/Wrapper';
 import {Dimensions, FlatList, StyleSheet, Text, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {FavoriteRenders} from '../../components/favoriteRenders/favoriteRenders';
+import SuccessModal from './../../components/modals/sccessModal';
+import {ShopHistoryRenderedItems} from '../../components/historyItems/historyItems';
 const {width} = Dimensions.get('window');
 let data = [
   {
@@ -49,67 +50,48 @@ let data = [
   },
 ];
 
-export default Favorites = ({}) => {
-  // const [add_remove_beg, setAddBeg] = useState();
-  // const [add_remove_favorite, setAddFavorite] = useState();
+export default BegPage = ({}) => {
+  const [modal_visible, setModalVisible] = useState(false);
   const navigation = useNavigation();
+
   const renderItem = ({item, index}) => {
     return (
-      <FavoriteRenders
-        navigation={() => navigation.navigate('SinglePage')}
+      <ShopHistoryRenderedItems
+        navigation={() =>
+          navigation.navigate('SinglePage', {
+            screen: 'SinglePage',
+          })
+        }
         image={item.image}
         title={item.title}
         price={item.price}
         gram={item.gram}
         info={item.info}
+        dateTime={'12 марта 2023'}
       />
     );
   };
 
   return (
     <Wrapper
-      leftIcon={false}
+      leftIcon={true}
       rightIcon={false}
-      title={'Избранные'}
+      title={'История покупок'}
       bottomLine={true}
+      styleProps={{marginBottom: 10}}
       goBack={() => navigation.goBack()}>
       <FlatList
         data={data}
         renderItem={renderItem}
         keyExtractor={(_, index) => index.toString()}
       />
+      <SuccessModal
+        press={() => setModalVisible(false)}
+        visible={modal_visible}
+        successText={'Заказ успешно принят'}
+        buttonText={'В Каталог'}
+      />
     </Wrapper>
   );
 };
-const styles = StyleSheet.create({
-  bottomBarInfo: {
-    width: width,
-    marginLeft: -20,
-    borderTopWidth: 2,
-    borderTopColor: '#F7F7F7',
-    paddingVertical: 17,
-    paddingHorizontal: 20,
-  },
-  productCount: {
-    fontFamily: 'Montserrat-Medium',
-    color: '#662916',
-    fontSize: 12,
-  },
-  priceParent: {
-    width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginTop: 3,
-  },
-  priceText: {
-    color: '#662916',
-    fontFamily: 'Montserrat-Medium',
-    fontSize: 20,
-  },
-  price: {
-    color: '#662916',
-    fontFamily: 'Montserrat-Regular',
-    fontSize: 20,
-  },
-});
+const styles = StyleSheet.create({});

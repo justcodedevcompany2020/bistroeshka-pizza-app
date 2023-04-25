@@ -53,15 +53,11 @@ let data = [
 
 export default BegPage = ({}) => {
   const [modal_visible, setModalVisible] = useState(false);
-  const [add_remove_beg, setAddBeg] = useState();
-  const [add_remove_favorite, setAddFavorite] = useState();
   const navigation = useNavigation();
+
   const renderItem = ({item, index}) => {
     return (
       <BegRenderedItems
-        add_remove_beg={add_remove_beg}
-        addBeg={() => setAddBeg(!add_remove_beg)}
-        addFavorite={() => setAddFavorite(!add_remove_favorite)}
         navigation={() => navigation.navigate('SinglePage')}
         image={item.image}
         title={item.title}
@@ -99,7 +95,10 @@ export default BegPage = ({}) => {
         </View>
       </View>
       <SuccessModal
-        press={() => setModalVisible(false)}
+        press={() => {
+          navigation.navigate('Catalog');
+          setModalVisible(false);
+        }}
         visible={modal_visible}
         successText={'Заказ успешно принят'}
         buttonText={'В Каталог'}
