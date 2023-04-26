@@ -1,14 +1,9 @@
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {BackgroundInput, TextColor} from '../colors/colors';
 import {CloseEye, OpenEye} from '../icons/includeSvg';
+import MaskInput from 'react-native-mask-input';
 
-const InputContainer = ({
+const PhoneInput = ({
   label,
   keyboardType,
   propsStyle,
@@ -21,12 +16,32 @@ const InputContainer = ({
   return (
     <View style={[styles.inputParent, propsStyle]}>
       <Text style={styles.label}>{label}</Text>
-      <TextInput
+      <MaskInput
         keyboardType={keyboardType}
         style={styles.input}
         secureTextEntry={secureTextEntry}
         onChangeText={onChangeText}
         value={value}
+        mask={[
+          '+',
+          '7',
+          ' ',
+          '(',
+          /\d/,
+          /\d/,
+          /\d/,
+          ')',
+          ' ',
+          /\d/,
+          /\d/,
+          /\d/,
+          '-',
+          /\d/,
+          /\d/,
+          '-',
+          /\d/,
+          /\d/,
+        ]}
       />
       {password && (
         <TouchableOpacity style={styles.eye} onPress={setEye}>
@@ -61,4 +76,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default InputContainer;
+export default PhoneInput;

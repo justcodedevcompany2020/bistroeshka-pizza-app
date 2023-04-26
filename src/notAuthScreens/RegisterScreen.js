@@ -6,11 +6,24 @@ import InputContainer from '../../components/inputs/InputContainer';
 import BigButton from '../../components/buttons/bigButton';
 import {useNavigation} from '@react-navigation/native';
 import {useState} from 'react';
+import PhoneInput from '../../components/inputs/phoneInput';
+import {useDispatch} from 'react-redux';
+import {registerRequest} from '../../store/reducer/registerSlice';
 
 export default RegisterScreen = ({}) => {
   const navigation = useNavigation();
   const [passwordEye, setPasswordEye] = useState(true);
   const [confirmPasswordEye, setConfirmPasswordEye] = useState(true);
+  const [name, setName] = useState('');
+  const [surname, setSurname] = useState('');
+  const [paternity, setPaternity] = useState('');
+  const [phone, setPhone] = useState('');
+  const [address, setAddress] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const dispatch = useDispatch();
+
+  
   return (
     <Wrapper leftIcon={true} goBack={() => navigation.goBack()}>
       <KeyboardAwareScrollView>
@@ -19,26 +32,41 @@ export default RegisterScreen = ({}) => {
           label={'Имя'}
           keyboardType={'default'}
           propsStyle={styles.firstInput}
+          onChangeText={value => setName(value)}
+          value={name}
         />
         <InputContainer
           label={'Фамилия'}
           keyboardType={'default'}
           propsStyle={styles.firstInput}
+          onChangeText={value => setSurname(value)}
+          value={surname}
         />
         <InputContainer
           label={'Отчество'}
           keyboardType={'default'}
           propsStyle={styles.firstInput}
+          onChangeText={value => setPaternity(value)}
+          value={paternity}
         />
-        <InputContainer
+        <PhoneInput
           label={'Номер телефона'}
-          keyboardType={'number-pad'}
+          keyboardType={'phone-pad'}
           propsStyle={styles.firstInput}
+          onChangeText={value => {
+            console.log('====================================');
+            console.log(value);
+            console.log('====================================');
+            setPhone(value);
+          }}
+          value={phone}
         />
         <InputContainer
           label={'Адрес доставки'}
           keyboardType={'default'}
           propsStyle={styles.firstInput}
+          onChangeText={value => setAddress(value)}
+          value={address}
         />
         <InputContainer
           label={'Пароль'}
@@ -47,6 +75,8 @@ export default RegisterScreen = ({}) => {
           propsStyle={styles.firstInput}
           password={true}
           setEye={() => setPasswordEye(!passwordEye)}
+          onChangeText={value => setPassword(value)}
+          value={password}
         />
         <InputContainer
           label={'Повторите пароль'}
@@ -55,11 +85,26 @@ export default RegisterScreen = ({}) => {
           propsStyle={styles.firstInput}
           password={true}
           setEye={() => setConfirmPasswordEye(!confirmPasswordEye)}
+          onChangeText={value => setConfirmPassword(value)}
+          value={confirmPassword}
         />
 
         <BigButton
           buttonText={'Зарегистрироваться'}
-          navigation={() => navigation.navigate('ConfirmPhoneRegister')}
+          navigation={() => {
+            dispatch(
+              registerRequest({
+                name: name,
+                lastName: paternity,
+                surname: surname,
+                password: password,
+                password_confirmation: confirmPassword,
+                phone: phone,
+                address: address,
+              }),
+            );
+            // navigation.navigate('ConfirmPhoneRegister');
+          }}
         />
         <Text style={styles.haveAccount}>
           Уже есть аккаунт?{' '}
